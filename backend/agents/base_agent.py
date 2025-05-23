@@ -21,7 +21,7 @@ class BaseAgent(ABC):
         # Configure Gemini API
         if settings.gemini_api_key:
             genai.configure(api_key=settings.gemini_api_key)
-            self.model = genai.GenerativeModel('gemini-pro')
+            self.model = genai.GenerativeModel('gemini-2.0-flash')
         else:
             logger.warning("Gemini API key not found. Agent will operate in mock mode.")
             self.model = None
