@@ -11,7 +11,7 @@ interface EnhancedMessageBubbleProps {
   isDarkMode: boolean;
 }
 
-const getAgentColor = (agent?: ChatResponse['agent_used'], isDarkMode: boolean) => {
+const getAgentColor = (isDarkMode: boolean, agent?: ChatResponse['agent_used']) => {
   if (isDarkMode) {
     switch (agent) {
       case 'math':
@@ -71,7 +71,7 @@ const EnhancedMessageBubble: React.FC<EnhancedMessageBubbleProps> = ({
         className={`max-w-[70%] rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 ${
           isUser
             ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white p-4'
-            : `border-2 ${getAgentColor(agentUsed, isDarkMode)} ${isDarkMode ? 'text-gray-100' : 'text-gray-800'} p-4`
+            : `border-2 ${getAgentColor(isDarkMode, agentUsed)} ${isDarkMode ? 'text-gray-100' : 'text-gray-800'} p-4`
         }`}
       >
         {/* User icon for user messages */}

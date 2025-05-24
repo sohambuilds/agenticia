@@ -129,10 +129,10 @@ const ChatInterface: React.FC = () => {
             <div className="text-4xl mb-4">🎓</div>
             <h2 className="text-lg font-medium mb-2">Welcome to AI Tutor!</h2>
             <p className="text-sm">
-              Ask me anything about math, physics, or any topic you'd like help with.
+              Ask me anything about math, physics, or any topic you&apos;d like help with.
             </p>
             <div className="mt-4 text-xs text-gray-400">
-              <p>Try: "What is 2 + 3 * 4?" or "What is the speed of light?"</p>
+              <p>Try: &quot;What is 2 + 3 * 4?&quot; or &quot;What is the speed of light?&quot;</p>
             </div>
           </div>
         )}

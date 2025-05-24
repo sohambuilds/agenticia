@@ -9,7 +9,7 @@ interface EnhancedFooterProps {
 
 const SocialLink = ({ href, icon: Icon, label, isDarkMode }: { 
   href: string; 
-  icon: any; 
+  icon: React.ComponentType<{ size?: number; className?: string }>; 
   label: string; 
   isDarkMode: boolean;
 }) => (

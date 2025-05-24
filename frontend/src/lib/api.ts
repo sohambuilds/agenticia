@@ -23,7 +23,7 @@ export interface ChatResponse {
   metadata?: {
     tools_used?: string[];
     confidence?: number;
-    agent_metadata?: any;
+    agent_metadata?: Record<string, unknown>;
     error?: string;
   };
 }
@@ -31,7 +31,7 @@ export interface ChatResponse {
 export interface AgentInfo {
   available_agents: string[];
   agent_descriptions: Record<string, string>;
-  routing_info: any;
+  routing_info: Record<string, unknown>;
   status: string;
 }
 
