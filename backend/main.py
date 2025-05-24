@@ -4,6 +4,7 @@ import uvicorn
 from api.routes import router
 from utils import setup_logging
 import logging
+import os
 
 # Setup logging first
 setup_logging()
@@ -15,11 +16,22 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# CORS origins for production and development
+allowed_origins = [
+    "http://localhost:3000",  # Local development
+    "https://*.vercel.app",   # Vercel preview deployments
+    "https://your-app-name.vercel.app",  # Replace with your actual Vercel domain
+]
+
+# Add custom domain if specified in environment
+if custom_domain := os.getenv("FRONTEND_URL"):
+    allowed_origins.append(custom_domain)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://*.vercel.app"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
