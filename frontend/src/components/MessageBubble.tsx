@@ -1,13 +1,4 @@
-import React from 'react';
-import { ChatResponse } from '@/lib/api';
-
-interface MessageBubbleProps {
-  message: string;
-  isUser: boolean;
-  agentUsed?: ChatResponse['agent_used'];
-  metadata?: ChatResponse['metadata'];
-  timestamp?: Date;
-}
+import React from 'react';import { ChatResponse } from '@/lib/api';import { Bot, User, Calculator, Zap, GraduationCap, Clock, Wrench } from 'lucide-react';interface MessageBubbleProps {  message: string;  isUser: boolean;  agentUsed?: ChatResponse['agent_used'];  metadata?: ChatResponse['metadata'];  timestamp?: Date;}
 
 const getAgentColor = (agent?: ChatResponse['agent_used']) => {
   switch (agent) {

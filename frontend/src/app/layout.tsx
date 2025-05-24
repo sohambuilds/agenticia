@@ -13,8 +13,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Tutor Assistant",
-  description: "Multi-agent AI tutoring system for math, physics, and general education",
+  title: "AI Tutor Assistant | Multi-Agent Educational AI by Soham",
+  description: "Advanced multi-agent AI tutoring system powered by Gemini AI. Get intelligent help with math calculations, physics problems, and general learning. Built by Soham with FastAPI and Next.js.",
+  keywords: ["AI tutor", "multi-agent", "education", "math", "physics", "learning", "AI assistant", "Soham"],
+  authors: [{ name: "Soham", url: "https://sohambuilds.github.io" }],
+  creator: "Soham",
+  robots: "index, follow",
+  openGraph: {
+    title: "AI Tutor Assistant | Multi-Agent Educational AI",
+    description: "Advanced AI tutoring system with specialized agents for math, physics, and general learning",
+    url: "https://sohambuilds.github.io",
+    siteName: "AI Tutor Assistant",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Tutor Assistant | Multi-Agent Educational AI",
+    description: "Advanced AI tutoring system with specialized agents for math, physics, and general learning",
+    creator: "@neuralxtract",
+  },
 };
 
 export default function RootLayout({
