@@ -34,10 +34,13 @@ const EnhancedChatInterface: React.FC = () => {
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
+    console.log('🏗️ EnhancedChatInterface initializing:', {
+      NODE_ENV: process.env.NODE_ENV,
+      NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+      timestamp: new Date().toISOString(),
+      userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : 'SSR'
+    });
+    
     inputRef.current?.focus();
     // Load dark mode preference from localStorage, default to dark mode
     const savedDarkMode = localStorage.getItem('darkMode');
@@ -50,6 +53,10 @@ const EnhancedChatInterface: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
@@ -59,6 +66,12 @@ const EnhancedChatInterface: React.FC = () => {
   const handleSendMessage = async (messageContent?: string) => {
     const content = messageContent || inputValue;
     if (!content.trim() || isLoading) return;
+
+    console.log('💬 Sending message:', {
+      content: content,
+      conversationId: conversationId,
+      timestamp: new Date().toISOString()
+    });
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -73,10 +86,13 @@ const EnhancedChatInterface: React.FC = () => {
     setError(null);
 
     try {
+      console.log('🚀 About to call chatAPI.sendMessage...');
       const response = await chatAPI.sendMessage(content, conversationId);
+      console.log('✅ ChatAPI response received:', response);
       
       if (!conversationId) {
         setConversationId(response.conversation_id);
+        console.log('📝 Set conversation ID:', response.conversation_id);
       }
 
       const aiMessage: Message = {
@@ -88,22 +104,33 @@ const EnhancedChatInterface: React.FC = () => {
         metadata: response.metadata,
       };
 
+      console.log('💬 Adding AI message:', aiMessage);
       setMessages(prev => [...prev, aiMessage]);
-    } catch (error) {
-      console.error('Error sending message:', error);
-      setError('Failed to send message. Please try again.');
+    } catch (error: any) {
+      console.error('❌ Error in handleSendMessage:', {
+        error: error,
+        message: error.message,
+        stack: error.stack,
+        response: error.response,
+        timestamp: new Date().toISOString()
+      });
+      
+      const errorMsg = `Failed to send message: ${error.message || 'Unknown error'}`;
+      setError(errorMsg);
       
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'Sorry, I encountered an error. Please try again.',
+        content: `I'm currently unable to process requests due to API configuration issues. Error: ${error.message || 'Connection failed'}`,
         isUser: false,
         timestamp: new Date(),
-        metadata: { error: 'Connection failed' },
+        metadata: { error: error.message || 'Connection failed' },
       };
       
+      console.log('📝 Adding error message:', errorMessage);
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      console.log('🏁 Message handling completed');
     }
   };
 
